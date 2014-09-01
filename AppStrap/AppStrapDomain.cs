@@ -1,11 +1,7 @@
 ﻿using AppStrap.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppStrap
 {
@@ -49,6 +45,7 @@ namespace AppStrap
                     AppDomain.Unload(AppDomain.CurrentDomain);
                 };
             });
+
             AppStrapLog.Info(this.AppName, "Create AppDomain succeed");
             return this._appDomain;
         }

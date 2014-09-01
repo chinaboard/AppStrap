@@ -1,4 +1,4 @@
-﻿namespace AppStrap
+﻿namespace AppStrap.Lib
 {
     public interface IAppStrapBoot
     {

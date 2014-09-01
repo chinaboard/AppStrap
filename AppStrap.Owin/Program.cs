@@ -1,13 +1,7 @@
-﻿using AppStrap.Owin.WebAPI;
-using AppStrap.Utils;
-using Microsoft.Owin.Hosting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Topshelf;
+using Topshelf.ServiceConfigurators;
 
 namespace AppStrap.Owin
 {
@@ -15,36 +9,32 @@ namespace AppStrap.Owin
     {
         static void Main(string[] args)
         {
+            HostFactory.Run(x =>
+            {
+                x.Service<OwinService>((ServiceConfigurator<OwinService> s) =>
+                {
+                    s.ConstructUsing(() => new OwinService());
+                    s.WhenStarted(tc => tc.Start());
+                    s.WhenStopped(tc => tc.Stop());
+                });
+                x.StartAutomatically();
+                x.RunAsLocalSystem();
+                x.SetDescription("一个特别牛X的AppDomain Host");
+                x.SetDisplayName("AppStrap.OwinService");
+                x.SetServiceName("AppStrap.OwinService");
+            });
+        }
+
+
+        static void ClearLog()
+        {
             Console.WriteLine("Clear Log?");
             if (Console.ReadKey(false).Key == ConsoleKey.Y)
             {
                 File.Delete(Utils.AppStrapLog.LogFilePath);
                 Console.WriteLine("\r\nThe log has been cleared.");
             }
-            else
-            {
-                Console.Clear();
-            }
-            var baseAddress = String.Format("http://*:{0}/", "5422");
-            WebApp.Start<WebAPIStartup>(url: baseAddress);
-
-            CoreService.Start();
-            Scheduler scheduler = new Scheduler();
-            scheduler.Start(TimeSpan.FromSeconds(10), () => Lookup());
-
-            CoreService.Stop();
-            Thread.Sleep(Timeout.Infinite);
-        }
-
-        static void Lookup()
-        {
             Console.Clear();
-            //foreach (var x in AppStrapList.Instance.List)
-            //{
-            //    AppStrapLog.Info(x.Key, x.Value.Status);
-            //}
-            Console.WriteLine("--------" + DateTime.Now + "--------");
-            AppStrapLog.LogList.ToList().ForEach(t => Console.WriteLine(t));
         }
     }
 }

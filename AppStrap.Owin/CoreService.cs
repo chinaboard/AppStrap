@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AppStrap.Owin
+﻿namespace AppStrap.Owin
 {
     public class CoreService
     {
-        static  AppStrap sb;
 
         public CoreService()
         {

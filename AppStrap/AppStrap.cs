@@ -1,10 +1,5 @@
 ﻿using AppStrap.Utils;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppStrap
 {
@@ -15,10 +10,11 @@ namespace AppStrap
         private AppStrapProxy _proxy = null;
         [NonSerialized]
         private AppDomain _appDomain = null;
-        public string AppName { get; private set; }
-        public string AppFilePath { get; private set; }
-        public string ConfigFile { get; private set; }
-        public string Status { get; private set; }
+        public string AppName { get; set; }
+        public string AppFilePath { get; set; }
+        public string ConfigFile { get; set; }
+        public string Status { get; set; }
+        public AppStrap() { }
         public AppStrap(string appName, string appFilePath, string configFile = null)
         {
             Preconditions.CheckNotBlankOrWhiteSpace(appName, "appName");

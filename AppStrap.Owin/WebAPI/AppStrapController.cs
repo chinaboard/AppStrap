@@ -3,23 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace AppStrap.Owin.WebAPI
 {
     public class AppStrapController : ApiController
     {
-        // GET api/values 
-        public IEnumerable<AppStrap> GetAppStrapList()
+        public JsonResult<List<AppStrap>> GetAppStrapList()
         {
-            return AppStrapList.Instance.List.Values;
+            return Json(AppStrapList.Instance.List.Values.ToList());
         }
 
-        public IEnumerable<string> GetAppStrapLog()
+        public JsonResult<IEnumerable<string>> GetAppStrapLog()
         {
-            return AppStrapLog.LogList.ToArray<string>();
+            return Json(AppStrapLog.LogList);
         }
 
         [HttpGet]

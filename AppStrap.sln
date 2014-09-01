@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppStrap", "AppStrap\AppStr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppStrap.Demo", "AppStrap.Demo\AppStrap.Demo.csproj", "{38F3314E-1CB6-4E9F-A7B8-BE277FD9A3DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppStrap.GUI", "AppStrap.GUI\AppStrap.GUI.csproj", "{95813DFA-3739-43A3-A8F3-140204692EFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{38F3314E-1CB6-4E9F-A7B8-BE277FD9A3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38F3314E-1CB6-4E9F-A7B8-BE277FD9A3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38F3314E-1CB6-4E9F-A7B8-BE277FD9A3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95813DFA-3739-43A3-A8F3-140204692EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95813DFA-3739-43A3-A8F3-140204692EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95813DFA-3739-43A3-A8F3-140204692EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95813DFA-3739-43A3-A8F3-140204692EFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
