@@ -12,8 +12,13 @@ namespace AppStrap.Demo
 
         public void Start()
         {
-            Console.WriteLine("Demo Said : I can fly!");
-            throw new Exception("Exception Test");
+            Utils.Scheduler sc = new Utils.Scheduler();
+            sc.Start(TimeSpan.FromSeconds(1), () =>
+            {
+                Console.WriteLine("Demo Said : I can fly!");
+                //throw new Exception("Exception Test");
+            });
+            
         }
 
         public void Stop()

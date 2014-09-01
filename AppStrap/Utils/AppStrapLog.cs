@@ -10,9 +10,9 @@ namespace AppStrap.Utils
 {
     public static class AppStrapLog
     {
-        private const string file = @"\Log.txt";
+        public const string LogFilePath = @"\Log.txt";
 
-        public static IEnumerable<string> LogList { get { return File.ReadAllLines(file); } }
+        public static IEnumerable<string> LogList { get { return File.ReadAllLines(LogFilePath); } }
 
 
         public static void Info(string appName, string message, Action<string> action = null)
@@ -33,7 +33,7 @@ namespace AppStrap.Utils
 
             action(message);
 
-            File.AppendAllText(file, message + Environment.NewLine);
+            File.AppendAllText(LogFilePath, message + Environment.NewLine);
         }
 
     }

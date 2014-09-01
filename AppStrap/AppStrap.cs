@@ -26,12 +26,9 @@ namespace AppStrap
 
             AppName = appName;
             AppFilePath = appFilePath;
-
             ConfigFile = configFile;
 
-
-            this._appDomain = CreateAppDomain();
-
+            this._appDomain = new AppStrapDomain(appName, appFilePath, configFile).GetAppDomain(); ;
 
             this._proxy = (AppStrapProxy)this._appDomain.CreateInstanceAndUnwrap(typeof(AppStrapProxy).Assembly.FullName, typeof(AppStrapProxy).FullName);
             this.Status = "Loaded";
@@ -41,46 +38,15 @@ namespace AppStrap
 
         public void Start()
         {
-            if (this._proxy != null)
-            {
-                this._proxy.Start(this.AppName, this.AppFilePath);
+            if (this._proxy != null && this._proxy.Start(this.AppName, this.AppFilePath))
                 this.Status = "Running";
-            }
         }
 
         public void Stop()
         {
-            AppStrapLog.Info(this.AppName, "Stop");
-            if (this._proxy != null)
-                this._proxy.Stop();
-            this.Status = "Loaded";
+            if (this._proxy != null && this._proxy.Stop())
+                this.Status = "Loaded";
         }
-
-        private AppDomain CreateAppDomain()
-        {
-            AppStrapLog.Info(this.AppName, "Create AppDomain");
-            var info = new AppDomainSetup();
-
-            info.ApplicationBase = Path.GetDirectoryName(this.AppFilePath);
-            if (!string.IsNullOrWhiteSpace(ConfigFile))
-            {
-                info.ConfigurationFile = this.ConfigFile;
-                AppStrapLog.Info(this.AppName, "Load Config File");
-            }
-
-            var appdomain = AppDomain.CreateDomain(this.AppName, null, info);
-            appdomain.DoCallBack(() =>
-            {
-                AppDomain.CurrentDomain.UnhandledException += (object sender, UnhandledExceptionEventArgs e) =>
-                {
-                    AppStrapLog.Error(this.AppName, "UnhandledException");
-                    AppDomain.Unload(AppDomain.CurrentDomain);
-                };
-            });
-            AppStrapLog.Info(this.AppName, "Create AppDomain succeed");
-            return appdomain;
-        }
-
 
     }
 }

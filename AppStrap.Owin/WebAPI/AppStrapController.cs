@@ -39,7 +39,7 @@ namespace AppStrap.Owin.WebAPI
             }
             catch (Exception ex)
             {
-                AppStrapLog.Error(appName, ex.Message);
+                AppStrapLog.Error("AppStrap", ex.Message);
                 return false;
             }
         }

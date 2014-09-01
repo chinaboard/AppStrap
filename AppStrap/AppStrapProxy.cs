@@ -12,7 +12,7 @@ namespace AppStrap
 
         private readonly object _padLock = new object();
         private IAppStrapBoot _bootInstance = null;
-
+        private string _appName = null;
 
         public AppStrapProxy()
         {
@@ -20,32 +20,53 @@ namespace AppStrap
         }
 
 
-        public void Start(string appName, string appFilePath)
+        public bool Start(string appName, string appFilePath)
         {
-            var assembly = Assembly.LoadFile(appFilePath);
-            var bootType = assembly.GetTypes().First(i => i.GetInterface(typeof(IAppStrapBoot).FullName) == typeof(IAppStrapBoot));
-            this._bootInstance = (IAppStrapBoot)Activator.CreateInstance(bootType);
             try
             {
-                AppStrapLog.Info(appName, "Start");
+                Preconditions.CheckNotBlankOrWhiteSpace(appName, "appName");
+
+                this._appName = appName;
+
+                AppStrapLog.Info(this._appName, "Start");
+
+                var assembly = Assembly.LoadFile(appFilePath);
+                var bootType = assembly.GetTypes().First(i => i.GetInterface(typeof(IAppStrapBoot).FullName) == typeof(IAppStrapBoot));
+                this._bootInstance = (IAppStrapBoot)Activator.CreateInstance(bootType);
+
                 if (_bootInstance != null)
                     _bootInstance.Start();
-                AppStrapLog.Info(appName, "Start succeed");
+
+                AppStrapLog.Info(this._appName, "Start succeed");
+
+                return true;
             }
             catch (Exception ex)
             {
-                AppStrapLog.Error(appName, ex.GetBaseException().Message);
-                AppStrapLog.Info(appName, "Start failed");
+                AppStrapLog.Error(this._appName, ex.GetBaseException().Message);
+                AppStrapLog.Info(this._appName, "Start failed");
+                return false;
             }
         }
 
 
 
-
-        public void Stop()
+        public bool Stop()
         {
-            if (_bootInstance != null)
-                _bootInstance.Stop();
+            try
+            {
+                AppStrapLog.Info(this._appName, "Stop");
+                if (_bootInstance != null)
+                    _bootInstance.Stop();
+                AppStrapLog.Info(this._appName, "Stop succeed");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AppStrapLog.Error(this._appName, ex.GetBaseException().Message);
+                AppStrapLog.Info(this._appName, "Stop failed");
+                return false;
+            }
         }
     }
 }

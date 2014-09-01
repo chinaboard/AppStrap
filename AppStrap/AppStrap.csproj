@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppStrap.cs" />
+    <Compile Include="AppStrapDomain.cs" />
     <Compile Include="AppStrapProxy.cs" />
     <Compile Include="AppStrapList.cs" />
     <Compile Include="AppStrapException.cs" />
