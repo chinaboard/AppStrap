@@ -84,7 +84,6 @@
     <Compile Include="OwinService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebAPI\JsonContentNegotiator.cs" />
     <Compile Include="WebAPI\WebAPIStartup.cs" />
     <Compile Include="WebAPI\AppStrapController.cs" />
   </ItemGroup>
