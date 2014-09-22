@@ -32,10 +32,12 @@
             this.listView = new System.Windows.Forms.ListView();
             this.AppName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AppStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.GetListButton = new System.Windows.Forms.Button();
-            this.GetLogButton = new System.Windows.Forms.Button();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
             this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.GetListButton = new System.Windows.Forms.Button();
+            this.GetLogButton = new System.Windows.Forms.Button();
+            this.AddAPPButton = new System.Windows.Forms.Button();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -44,6 +46,7 @@
             this.splitContainerRight.Panel1.SuspendLayout();
             this.splitContainerRight.Panel2.SuspendLayout();
             this.splitContainerRight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainerMain
@@ -88,28 +91,6 @@
             this.AppStatus.Text = "AppStatus";
             this.AppStatus.Width = 80;
             // 
-            // GetListButton
-            // 
-            this.GetListButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.GetListButton.Location = new System.Drawing.Point(3, 10);
-            this.GetListButton.Name = "GetListButton";
-            this.GetListButton.Size = new System.Drawing.Size(78, 23);
-            this.GetListButton.TabIndex = 0;
-            this.GetListButton.Text = "GetList";
-            this.GetListButton.UseVisualStyleBackColor = true;
-            this.GetListButton.Click += new System.EventHandler(this.GetListButton_Click);
-            // 
-            // GetLogButton
-            // 
-            this.GetLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.GetLogButton.Location = new System.Drawing.Point(340, 10);
-            this.GetLogButton.Name = "GetLogButton";
-            this.GetLogButton.Size = new System.Drawing.Size(102, 23);
-            this.GetLogButton.TabIndex = 2;
-            this.GetLogButton.Text = "GetLog";
-            this.GetLogButton.UseVisualStyleBackColor = true;
-            this.GetLogButton.Click += new System.EventHandler(this.GetLogButton_Click);
-            // 
             // splitContainerRight
             // 
             this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -123,6 +104,7 @@
             // 
             // splitContainerRight.Panel2
             // 
+            this.splitContainerRight.Panel2.Controls.Add(this.AddAPPButton);
             this.splitContainerRight.Panel2.Controls.Add(this.GetListButton);
             this.splitContainerRight.Panel2.Controls.Add(this.GetLogButton);
             this.splitContainerRight.Size = new System.Drawing.Size(445, 441);
@@ -139,6 +121,44 @@
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxLog.Size = new System.Drawing.Size(445, 395);
             this.textBoxLog.TabIndex = 3;
+            // 
+            // GetListButton
+            // 
+            this.GetListButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GetListButton.Location = new System.Drawing.Point(3, 10);
+            this.GetListButton.Name = "GetListButton";
+            this.GetListButton.Size = new System.Drawing.Size(78, 23);
+            this.GetListButton.TabIndex = 0;
+            this.GetListButton.Text = "GetList";
+            this.GetListButton.UseVisualStyleBackColor = true;
+            this.GetListButton.Click += new System.EventHandler(this.GetListButton_Click);
+            // 
+            // GetLogButton
+            // 
+            this.GetLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GetLogButton.Location = new System.Drawing.Point(87, 10);
+            this.GetLogButton.Name = "GetLogButton";
+            this.GetLogButton.Size = new System.Drawing.Size(102, 23);
+            this.GetLogButton.TabIndex = 2;
+            this.GetLogButton.Text = "GetLog";
+            this.GetLogButton.UseVisualStyleBackColor = true;
+            this.GetLogButton.Click += new System.EventHandler(this.GetLogButton_Click);
+            // 
+            // AddAPPButton
+            // 
+            this.AddAPPButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddAPPButton.Location = new System.Drawing.Point(358, 10);
+            this.AddAPPButton.Name = "AddAPPButton";
+            this.AddAPPButton.Size = new System.Drawing.Size(75, 23);
+            this.AddAPPButton.TabIndex = 3;
+            this.AddAPPButton.Text = "AddAPP";
+            this.AddAPPButton.UseVisualStyleBackColor = true;
+            this.AddAPPButton.Click += new System.EventHandler(this.AddAPPButton_Click);
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
             // 
             // Main
             // 
@@ -158,6 +178,7 @@
             this.splitContainerRight.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).EndInit();
             this.splitContainerRight.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -172,6 +193,8 @@
         private System.Windows.Forms.Button GetLogButton;
         private System.Windows.Forms.SplitContainer splitContainerRight;
         private System.Windows.Forms.TextBox textBoxLog;
+        private System.Windows.Forms.Button AddAPPButton;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
 
     }
 }

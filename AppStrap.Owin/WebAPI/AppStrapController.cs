@@ -15,9 +15,9 @@ namespace AppStrap.Owin.WebAPI
             return Json(AppStrapList.Instance.List.Values.ToList());
         }
 
-        public JsonResult<IEnumerable<string>> GetAppStrapLog()
+        public IEnumerable<string> GetAppStrapLog()
         {
-            return Json(AppStrapLog.LogList);
+            return AppStrapLog.LogList;
         }
 
         [HttpGet]
