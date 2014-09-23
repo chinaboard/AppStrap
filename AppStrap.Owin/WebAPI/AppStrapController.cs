@@ -21,16 +21,12 @@ namespace AppStrap.Owin.WebAPI
         }
 
         [HttpGet]
-        public bool LoadAppStrap(HttpRequestMessage request)
+        public bool LoadAppStrap(string appName, string appFilePath)
         {
-            string appName = request.RequestUri.ParseQueryString().Get("AppName");
-            string appFilePath = request.RequestUri.ParseQueryString().Get("AppFilePath");
-
-            Preconditions.CheckNotBlankOrWhiteSpace(appName, "AppName");
-            Preconditions.CheckNotBlankOrWhiteSpace(appFilePath, "AppFilePath");
-
             try
             {
+                Preconditions.CheckNotBlankOrWhiteSpace(appName, "AppName");
+                Preconditions.CheckNotBlankOrWhiteSpace(appFilePath, "AppFilePath");
                 var app = new AppStrap(appName, appFilePath);
                 app.Start();
                 return true;

@@ -3,12 +3,9 @@ using System;
 
 namespace AppStrap
 {
-    [Serializable]
     public class AppStrap
     {
-        [NonSerialized]
         private AppStrapProxy _proxy = null;
-        [NonSerialized]
         private AppDomain _appDomain = null;
         public string AppName { get; set; }
         public string AppFilePath { get; set; }
