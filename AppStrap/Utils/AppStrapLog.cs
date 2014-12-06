@@ -31,7 +31,11 @@ namespace AppStrap.Utils
             if (action == null)
                 action = Console.WriteLine;
 
-            action(message);
+            try
+            {
+                action(message);
+            }
+            catch { }
 
             File.AppendAllText(LogFilePath, message + Environment.NewLine);
         }
