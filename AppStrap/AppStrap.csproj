@@ -52,7 +52,6 @@
     <Compile Include="AppStrapException.cs" />
     <Compile Include="IAppStrapBoot.cs" />
     <Compile Include="Utils\AppStrapLog.cs" />
-    <Compile Include="Utils\IScheduler.cs" />
     <Compile Include="Utils\Preconditions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Scheduler.cs" />

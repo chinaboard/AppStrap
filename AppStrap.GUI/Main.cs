@@ -24,29 +24,29 @@ namespace AppStrap.GUI
 
         }
 
-        private void GetListButton_Click(object sender, EventArgs e)
+        private async void GetListButton_Click(object sender, EventArgs e)
         {
-            var response = client.GetAsync(@"http://localhost:3845/api/AppStrap/GetAppStrapList")
-                .Result.Content.ReadAsStringAsync().Result;
-            var list = JsonConvert.DeserializeObject<IEnumerable<AppStrap>>(response);
+            var response = await client.GetAsync(@"http://localhost:3845/api/AppStrap/GetAppStrapList");
+            var content = await response.Content.ReadAsStringAsync();
+            var list = JsonConvert.DeserializeObject<List<AppStrap>>(content);
 
 
-            list.ToList().ForEach(p =>
+            list.ForEach(p =>
             {
                 var tmp = new ListViewItem();
                 tmp.SubItems[0].Text = p.AppName;
                 tmp.SubItems.Add(p.Status);
-                this.listView.Items.Add(tmp);
+                listView.Items.Add(tmp);
             });
         }
 
-        private void GetLogButton_Click(object sender, EventArgs e)
+        private async void GetLogButton_Click(object sender, EventArgs e)
         {
-            var response = client.GetAsync(@"http://localhost:3845/api/AppStrap/GetAppStrapLog")
-                .Result.Content.ReadAsStringAsync().Result;
-            var list = JsonConvert.DeserializeObject<IEnumerable<string>>(response);
+            var response = await client.GetAsync(@"http://localhost:3845/api/AppStrap/GetAppStrapLog");
+            var content = await response.Content.ReadAsStringAsync();
+            var list = JsonConvert.DeserializeObject<IEnumerable<string>>(content);
 
-            this.textBoxLog.Lines = list.ToArray();
+            textBoxLog.Lines = list.ToArray();
         }
 
         private void AddAPPButton_Click(object sender, EventArgs e)

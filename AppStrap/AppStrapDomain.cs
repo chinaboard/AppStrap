@@ -24,30 +24,30 @@ namespace AppStrap
         }
         public AppDomain GetAppDomain(Evidence securityInfo = null, AppDomainSetup info = null)
         {
-            AppStrapLog.Info(this.AppName, "Create AppDomain");
+            AppStrapLog.Info(AppName, "Create AppDomain");
             if (info == null)
                 info = new AppDomainSetup();
 
-            info.ApplicationBase = Path.GetDirectoryName(this.AppFilePath);
+            info.ApplicationBase = Path.GetDirectoryName(AppFilePath);
             
-            if (!string.IsNullOrWhiteSpace(this.ConfigFile))
+            if (!string.IsNullOrWhiteSpace(ConfigFile))
             {
-                info.ConfigurationFile = this.ConfigFile;
-                AppStrapLog.Info(this.AppName, "Load Config File");
+                info.ConfigurationFile = ConfigFile;
+                AppStrapLog.Info(AppName, "Load Config File");
             }
 
-            this._appDomain = AppDomain.CreateDomain(this.AppName, securityInfo, info);
-            this._appDomain.DoCallBack(() =>
+            _appDomain = AppDomain.CreateDomain(AppName, securityInfo, info);
+            _appDomain.DoCallBack(() =>
             {
                 AppDomain.CurrentDomain.UnhandledException += (object sender, UnhandledExceptionEventArgs e) =>
                 {
-                    AppStrapLog.Error(this.AppName, "UnhandledException");
+                    AppStrapLog.Error(AppName, "UnhandledException");
                     AppDomain.Unload(AppDomain.CurrentDomain);
                 };
             });
 
-            AppStrapLog.Info(this.AppName, "Create AppDomain succeed");
-            return this._appDomain;
+            AppStrapLog.Info(AppName, "Create AppDomain succeed");
+            return _appDomain;
         }
     }
 }

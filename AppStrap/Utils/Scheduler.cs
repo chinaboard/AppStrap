@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace AppStrap.Utils
 {
-    public sealed class Scheduler : IScheduler
+    internal sealed class Scheduler
     {
-        private CancellationTokenSource token = null;
+        private CancellationTokenSource _token = null;
 
-        public void Start(TimeSpan interval, Action action)
+        public void Start(TimeSpan interval, Action action, Action<Exception> handleException = null, bool throwOnFirstException = false)
         {
             Start(interval, t =>
             {
@@ -17,34 +17,34 @@ namespace AppStrap.Utils
                 {
                     action();
                 }
-            });
+            }, handleException, throwOnFirstException);
         }
 
-        public void Start(TimeSpan interval, Action<CancellationToken> action)
+        public void Start(TimeSpan interval, Action<CancellationToken> action, Action<Exception> handleException = null, bool throwOnFirstException = false)
         {
             Start(interval, t =>
             {
                 action(t);
                 return Completed();
-            });
+            }, handleException, throwOnFirstException);
         }
 
-        public void Start(TimeSpan interval, Func<Task> task)
+        public void Start(TimeSpan interval, Func<Task> task, Action<Exception> handleException = null, bool throwOnFirstException = false)
         {
-            Start(interval, t => t.IsCancellationRequested ? task() : Completed());
+            Start(interval, t => t.IsCancellationRequested ? task() : Completed(), handleException, throwOnFirstException);
         }
 
-        public void Start(TimeSpan interval, Func<CancellationToken, Task> task)
+        public void Start(TimeSpan interval, Func<CancellationToken, Task> task, Action<Exception> handleException = null, bool throwOnFirstException = false)
         {
             Preconditions.CheckLessZero((int)interval.TotalSeconds, "interval");
-            Preconditions.CheckNull(this.token, "Scheduler");
+            Preconditions.CheckNull(_token, "Scheduler");
 
-            this.token = new CancellationTokenSource();
+            _token = new CancellationTokenSource();
 
-            RunScheduler(interval, task, this.token);
+            RunScheduler(interval, task, _token, handleException, throwOnFirstException);
         }
 
-        private static void RunScheduler(TimeSpan interval, Func<CancellationToken, Task> action, CancellationTokenSource token)
+        private static void RunScheduler(TimeSpan interval, Func<CancellationToken, Task> action, CancellationTokenSource token, Action<Exception> handleException = null, bool throwOnFirstException = false)
         {
             Task.Factory.StartNew(async () =>
             {
@@ -55,10 +55,11 @@ namespace AppStrap.Utils
                     {
                         await action(token.Token);
                     }
-                    catch (Exception x)
+                    catch (Exception ex)
                     {
-                        HandleException(x);
-                        token.Cancel();
+                        if (handleException != null)
+                            handleException(ex);
+                        token.Cancel(throwOnFirstException);
                     }
                 }
             }, token.Token);
@@ -69,16 +70,12 @@ namespace AppStrap.Utils
             return Task.FromResult(true);
         }
 
-        private static void HandleException(Exception x)
-        {
-            //nothing
-        }
 
         public void Stop()
         {
-            if (this.token != null)
+            if (_token != null)
             {
-                token.Cancel();
+                _token.Cancel();
             }
         }
 
@@ -86,7 +83,7 @@ namespace AppStrap.Utils
         {
             try
             {
-                action(this.token.Token);
+                action(_token.Token);
             }
             catch (Exception x)
             {
@@ -96,10 +93,10 @@ namespace AppStrap.Utils
 
         public void Dispose()
         {
-            if (this.token != null)
+            if (_token != null)
             {
-                this.token.Cancel();
-                this.token.Dispose();
+                _token.Cancel();
+                _token.Dispose();
             }
             GC.SuppressFinalize(this);
         }

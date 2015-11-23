@@ -21,24 +21,24 @@ namespace AppStrap
             AppFilePath = appFilePath;
             ConfigFile = configFile;
 
-            this._appDomain = new AppStrapDomain(appName, appFilePath, configFile).GetAppDomain(); ;
+            _appDomain = new AppStrapDomain(appName, appFilePath, configFile).GetAppDomain();
 
-            this._proxy = (AppStrapProxy)this._appDomain.CreateInstanceAndUnwrap(typeof(AppStrapProxy).Assembly.FullName, typeof(AppStrapProxy).FullName);
-            this.Status = "Loaded";
+            _proxy = (AppStrapProxy)_appDomain.CreateInstanceAndUnwrap(typeof(AppStrapProxy).Assembly.FullName, typeof(AppStrapProxy).FullName);
+            Status = "Loaded";
 
             AppStrapList.Instance.GetOrAdd(AppName, this);
         }
 
         public void Start()
         {
-            if (this._proxy != null && this._proxy.Start(this.AppName, this.AppFilePath))
-                this.Status = "Running";
+            if (_proxy != null && _proxy.Start(AppName, AppFilePath))
+                Status = "Running";
         }
 
         public void Stop()
         {
-            if (this._proxy != null && this._proxy.Stop())
-                this.Status = "Loaded";
+            if (_proxy != null && _proxy.Stop())
+                Status = "Loaded";
         }
 
     }

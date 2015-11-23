@@ -7,7 +7,7 @@ namespace AppStrap
         public static AppStrapList Instance { get; private set; }
         public AppStrapList()
         {
-            this.List = new ConcurrentDictionary<string, AppStrap>();
+            List = new ConcurrentDictionary<string, AppStrap>();
         }
 
         static AppStrapList()
@@ -17,9 +17,9 @@ namespace AppStrap
 
         public AppStrap GetOrAdd(string key, AppStrap value)
         {
-            if (this.List.ContainsKey(key))
-                Utils.Preconditions.CheckNull(this.List[key], key);
-            return this.List.GetOrAdd(key, value);
+            if (List.ContainsKey(key))
+                Utils.Preconditions.CheckNull(List[key], key);
+            return List.GetOrAdd(key, value);
         }
 
 

@@ -24,25 +24,25 @@ namespace AppStrap
             {
                 Preconditions.CheckNotBlankOrWhiteSpace(appName, "appName");
 
-                this._appName = appName;
+                _appName = appName;
 
-                AppStrapLog.Info(this._appName, "Start");
+                AppStrapLog.Info(_appName, "Start");
 
                 var assembly = Assembly.LoadFile(appFilePath);
                 var bootType = assembly.GetTypes().First(i => i.GetInterface(typeof(IAppStrapBoot).FullName) == typeof(IAppStrapBoot));
-                this._bootInstance = (IAppStrapBoot)Activator.CreateInstance(bootType);
+                _bootInstance = (IAppStrapBoot)Activator.CreateInstance(bootType);
 
                 if (_bootInstance != null)
                     _bootInstance.Start();
 
-                AppStrapLog.Info(this._appName, "Start succeed");
+                AppStrapLog.Info(_appName, "Start succeed");
 
                 return true;
             }
             catch (Exception ex)
             {
-                AppStrapLog.Error(this._appName, ex.GetBaseException().Message);
-                AppStrapLog.Info(this._appName, "Start failed");
+                AppStrapLog.Error(_appName, ex.GetBaseException().Message);
+                AppStrapLog.Info(_appName, "Start failed");
                 return false;
             }
         }
@@ -53,16 +53,16 @@ namespace AppStrap
         {
             try
             {
-                AppStrapLog.Info(this._appName, "Stop");
+                AppStrapLog.Info(_appName, "Stop");
                 if (_bootInstance != null)
                     _bootInstance.Stop();
-                AppStrapLog.Info(this._appName, "Stop succeed");
+                AppStrapLog.Info(_appName, "Stop succeed");
                 return true;
             }
             catch (Exception ex)
             {
-                AppStrapLog.Error(this._appName, ex.GetBaseException().Message);
-                AppStrapLog.Info(this._appName, "Stop failed");
+                AppStrapLog.Error(_appName, ex.GetBaseException().Message);
+                AppStrapLog.Info(_appName, "Stop failed");
                 return false;
             }
         }

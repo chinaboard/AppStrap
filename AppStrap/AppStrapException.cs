@@ -9,19 +9,19 @@ namespace AppStrap
         public AppStrapException(string domainName, string message)
             : base(message)
         {
-            this.Name = domainName;
+            Name = domainName;
         }
 
         public AppStrapException(string domainName, string message, Exception innerException)
             : base(message, innerException)
         {
-            this.Name = domainName;
+            Name = domainName;
         }
 
         private AppStrapException(string domainName, SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            this.Name = domainName;
+            Name = domainName;
         }
     }
 }

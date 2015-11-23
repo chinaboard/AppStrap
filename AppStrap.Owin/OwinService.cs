@@ -14,7 +14,7 @@ namespace AppStrap.Owin
             
 
             var baseAddress = String.Format("http://*:{0}/", "3845");
-            this._webApi = WebApp.Start<WebAPIStartup>(url: baseAddress);
+            _webApi = WebApp.Start<WebAPIStartup>(url: baseAddress);
 
             Console.WriteLine("AppStrap.Owin Start : {0}", baseAddress);
 
@@ -30,9 +30,9 @@ namespace AppStrap.Owin
         {
 
             CoreService.Stop();
-            if (this._webApi != null)
+            if (_webApi != null)
             {
-                this._webApi.Dispose();
+                _webApi.Dispose();
             }
         }
 
