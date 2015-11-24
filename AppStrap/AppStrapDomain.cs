@@ -5,10 +5,8 @@ using System.Security.Policy;
 
 namespace AppStrap
 {
-    [Serializable]
     public class AppStrapDomain
     {
-        [NonSerialized]
         private AppDomain _appDomain = null;
         public string AppName { get; private set; }
         public string AppFilePath { get; private set; }
@@ -24,12 +22,18 @@ namespace AppStrap
         }
         public AppDomain GetAppDomain(Evidence securityInfo = null, AppDomainSetup info = null)
         {
+            if (_appDomain != null)
+            {
+                AppStrapLog.Info(AppName, $"AppDomain:{AppName} already exists");
+                return _appDomain;
+            }
+
             AppStrapLog.Info(AppName, "Create AppDomain");
             if (info == null)
                 info = new AppDomainSetup();
 
             info.ApplicationBase = Path.GetDirectoryName(AppFilePath);
-            
+
             if (!string.IsNullOrWhiteSpace(ConfigFile))
             {
                 info.ConfigurationFile = ConfigFile;
@@ -48,6 +52,10 @@ namespace AppStrap
 
             AppStrapLog.Info(AppName, "Create AppDomain succeed");
             return _appDomain;
+        }
+        public void Unload()
+        {
+            AppDomain.Unload(_appDomain);
         }
     }
 }
