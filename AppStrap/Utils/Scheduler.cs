@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AppStrap.Utils
 {
-    internal sealed class Scheduler
+    public sealed class Scheduler
     {
         private CancellationTokenSource _token = null;
 

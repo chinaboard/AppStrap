@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppStrap.Utils
 {
-    internal static class AppStrapLog
+    public static class AppStrapLog
     {
         public const string LogFilePath = @"\Log.txt";
 

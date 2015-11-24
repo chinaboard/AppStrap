@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppStrap.Utils
 {
-    internal static class Preconditions
+    public static class Preconditions
     {
         public static void CheckNull<T>(T value, string name) where T : class
         {
